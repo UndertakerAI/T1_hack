@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VideoSegmentation Pro - Локальная система видеосегментации</title>
     <style>
-        /* Все стили остаются без изменений */
         * {
             margin: 0;
             padding: 0;
@@ -39,7 +38,6 @@
             overflow: hidden;
         }
 
-        /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
             color: white;
@@ -79,7 +77,6 @@
             font-weight: 300;
         }
 
-        /* Main Layout */
         .main-content {
             display: grid;
             grid-template-columns: 1fr 400px;
@@ -486,7 +483,6 @@
         </header>
 
         <div class="main-content">
-            <!-- Left: Video Processing -->
             <div class="video-section">
                 <div class="video-container">
                     <h3>AI Сегментация с заменой фона</h3>
@@ -534,7 +530,6 @@
                 </div>
             </div>
 
-            <!-- Right: Settings Panel -->
             <div class="settings-panel">
                 <div class="settings-section">
                     <h3>Настройки камеры</h3>
@@ -694,7 +689,6 @@
                     privacy_level: "medium"
                 };
 
-                // Оптимизация: буфер для временных данных
                 this.tempCanvas = document.createElement('canvas');
                 this.tempCtx = this.tempCanvas.getContext('2d');
                 this.maskCanvas = document.createElement('canvas');
@@ -816,7 +810,7 @@
                         document.querySelectorAll('.background-option').forEach(o => o.classList.remove('active'));
                         e.currentTarget.classList.add('active');
                         this.currentBackgroundType = e.currentTarget.dataset.bg;
-                        this.backgroundNeedsUpdate = true; // Помечаем, что фон нужно обновить
+                        this.backgroundNeedsUpdate = true;
                         this.changeBackground(this.currentBackgroundType);
                     });
                 });
@@ -828,7 +822,6 @@
                         this.employeeData.privacy_level = e.currentTarget.dataset.level;
                         this.updateBackgroundPreview();
                         
-                        // Если персонализированный фон активен, помечаем для обновления
                         if (this.currentBackgroundType === 'personalized') {
                             this.backgroundNeedsUpdate = true;
                         }
@@ -885,7 +878,6 @@
             }
 
             createBlurBackground() {
-                // Для размытого фона создаем динамический фон на основе текущего видео
                 if (!this.isStreaming) {
                     this.backgroundImage = this.createDefaultBackground();
                     return;
@@ -897,15 +889,12 @@
                 this.blurCanvas.width = width;
                 this.blurCanvas.height = height;
                 
-                // Рисуем текущий кадр видео
                 this.blurCtx.drawImage(this.videoElement, 0, 0, width, height);
                 
-                // Применяем размытие
                 this.blurCtx.filter = 'blur(15px)';
                 this.blurCtx.drawImage(this.blurCanvas, 0, 0, width, height);
                 this.blurCtx.filter = 'none';
                 
-                // Добавляем затемнение для лучшего контраста
                 this.blurCtx.fillStyle = 'rgba(0, 0, 0, 0.3)';
                 this.blurCtx.fillRect(0, 0, width, height);
                 
@@ -918,7 +907,6 @@
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 
-                // Создаем профессиональный офисный фон
                 const gradient = ctx.createLinearGradient(0, 0, width, height);
                 gradient.addColorStop(0, '#34495e');
                 gradient.addColorStop(1, '#2c3e50');
@@ -926,7 +914,6 @@
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, width, height);
                 
-                // Добавляем элементы офиса
                 ctx.fillStyle = 'rgba(52, 152, 219, 0.1)';
                 for (let i = 0; i < width; i += 100) {
                     ctx.fillRect(i, 0, 2, height);
@@ -935,7 +922,6 @@
                     ctx.fillRect(0, i, width, 2);
                 }
                 
-                // Добавляем стилизованные книги на полке
                 ctx.fillStyle = '#e74c3c';
                 ctx.fillRect(width * 0.1, height * 0.7, 30, 80);
                 ctx.fillStyle = '#3498db';
@@ -943,7 +929,6 @@
                 ctx.fillStyle = '#f39c12';
                 ctx.fillRect(width * 0.2, height * 0.7, 30, 70);
                 
-                // Добавляем растение
                 ctx.fillStyle = '#27ae60';
                 ctx.beginPath();
                 ctx.arc(width * 0.8, height * 0.3, 40, 0, Math.PI * 2);
@@ -958,14 +943,12 @@
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 
-                // Создаем профессиональный фон
                 const gradient = ctx.createLinearGradient(0, 0, width, height);
                 gradient.addColorStop(0, '#1a2a3a');
                 gradient.addColorStop(1, '#2c3e50');
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, width, height);
                 
-                // Добавляем корпоративный стиль
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
                 for (let i = 0; i < width; i += 50) {
                     ctx.fillRect(i, 0, 1, height);
@@ -974,7 +957,7 @@
                     ctx.fillRect(0, i, width, 1);
                 }
                 
-                // Добавляем информацию о сотруднике
+                // Информацию о сотруднике
                 ctx.fillStyle = 'white';
                 ctx.font = 'bold 24px Arial';
                 ctx.textAlign = 'center';
@@ -987,7 +970,6 @@
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
                 ctx.fillText(this.employeeData.company, width / 2, height / 2 + 40);
                 
-                // Добавляем логотип (просто круг для примера)
                 ctx.fillStyle = '#3498db';
                 ctx.beginPath();
                 ctx.arc(width - 60, 60, 30, 0, Math.PI * 2);
@@ -1103,7 +1085,6 @@
                 this.blurCanvas.width = videoWidth;
                 this.blurCanvas.height = videoHeight;
                 
-                // Помечаем фон для обновления при изменении размера
                 this.backgroundNeedsUpdate = true;
                 
                 console.log(`Canvas настроен: ${videoWidth}x${videoHeight}`);
@@ -1140,7 +1121,7 @@
             startFrameProcessing() {
                 let lastSegmentationTime = 0;
                 let lastBackgroundUpdate = 0;
-                const backgroundUpdateInterval = 100; // Обновляем фон каждые 100мс
+                const backgroundUpdateInterval = 100;
                 
                 const processFrame = (timestamp) => {
                     if (!this.isStreaming) return;
@@ -1149,23 +1130,19 @@
                     
                     const startTime = performance.now();
                     
-                    // Обновляем FPS
                     this.updateFPS();
                     
-                    // Обновляем фон если нужно
                     if (timestamp - lastBackgroundUpdate >= backgroundUpdateInterval) {
                         this.updateBackground();
                         lastBackgroundUpdate = timestamp;
                     }
                     
                     if (this.isSegmenting && this.isModelLoaded && !this.isProcessing) {
-                        // Ограничиваем частоту сегментации для производительности
                         if (timestamp - lastSegmentationTime >= this.segmentationInterval) {
                             this.processSegmentation();
                             lastSegmentationTime = timestamp;
                         }
                     } else if (!this.isSegmenting) {
-                        // Просто показываем видео без обработки
                         this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
                         this.ctx.drawImage(this.videoElement, 0, 0);
                     }
@@ -1194,30 +1171,24 @@
                 const width = this.canvasElement.width;
                 const height = this.canvasElement.height;
                 
-                // Очищаем canvas
                 this.ctx.clearRect(0, 0, width, height);
                 
-                // 1. Рисуем фон (обновляется в реальном времени)
                 if (this.backgroundImage) {
                     this.ctx.drawImage(this.backgroundImage, 0, 0, width, height);
                 }
-                
-                // 2. Рисуем маску сегментации
+
                 this.ctx.save();
                 this.ctx.globalCompositeOperation = 'source-in';
                 this.ctx.drawImage(results.segmentationMask, 0, 0, width, height);
                 
-                // 3. Рисуем видео поверх маски
                 this.ctx.globalCompositeOperation = 'source-atop';
                 this.ctx.drawImage(results.image, 0, 0, width, height);
                 this.ctx.restore();
                 
-                // Применяем постобработку если включена
                 if (document.getElementById('enablePostProcessing').checked) {
                     this.applyPostProcessing();
                 }
                 
-                // Рисуем индикатор работы
                 this.drawProcessingIndicator();
                 
                 this.isProcessing = false;
@@ -1270,7 +1241,6 @@
                 document.getElementById('cpuValue').textContent = `${Math.round(Math.random() * 20 + 5)}%`;
                 document.getElementById('modelValue').textContent = 'MediaPipe';
                 
-                // Обновляем цвет метрик в зависимости от производительности
                 const fpsElement = document.getElementById('fpsValue');
                 const latencyElement = document.getElementById('latencyValue');
                 
@@ -1338,7 +1308,6 @@
             }
         }
 
-        // Инициализация системы при загрузке страницы
         document.addEventListener('DOMContentLoaded', async () => {
             window.videoSegmentationSystem = new VideoSegmentationSystem();
         });
